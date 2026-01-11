@@ -2,10 +2,142 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>私のテストサイト</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nobebeeeno App Studio</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-muted: #7f8c8d;
+        }
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .app-title {
+            font-size: 1.8rem;
+            margin-top: 0;
+            color: var(--accent-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        .description-section {
+            margin-bottom: 1.5rem;
+        }
+        .lang-label {
+            display: inline-block;
+            background: #eee;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        .description-text {
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+        .links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .links a {
+            text-decoration: none;
+            color: white;
+            background-color: var(--accent-color);
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .links a:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+        footer {
+            text-align: center;
+            padding: 3rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #eee;
+            margin: 1.5rem 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    <p>GitHub Pagesで公開に成功しました！</p>
+
+<header>
+    <h1>nobebeeeno App Studio</h1>
+    <p>Simple tools, powerful experiences.</p>
+</header>
+
+<div class="container">
+    <h2>Published Apps</h2>
+
+    <div class="app-card">
+        <h3 class="app-title">MIRVID</h3>
+        
+        <div class="description-section">
+            <span class="lang-label">JAPANESE</span>
+            <p class="description-text">
+                機能を最小限に絞り動画再生に特化した「超シンプル」な操作性。
+                反転再生、ループ、速度調整、拡大・縮小など、動画チェックに本当に必要な機能だけを直感的に使えるビデオプレイヤーです。
+            </p>
+        </div>
+
+        <hr>
+
+        <div class="description-section">
+            <span class="lang-label">ENGLISH</span>
+            <p class="description-text">
+                An ultra-simple video player focused purely on playback functionality.
+                Equipped with essential features for detailed video analysis, including mirroring, looping, playback speed control, and zooming.
+            </p>
+        </div>
+
+        <div class="links">
+            <a href="./docs/MIRVID/PrivacyPolicy/english.html">Privacy Policy</a>
+            <a href="./docs/MIRVID/TermsOfService/english.html">Terms of Service</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2026 nobebeeeno. All rights reserved.<br>
+    Contact: nobebeeeno.engineer@gmail.com
+</footer>
+
 </body>
 </html>
