@@ -4,95 +4,296 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>nobebeeeno App Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #3498db;
-            --bg-color: #f4f7f6;
+            --primary: #1a1f2e;
+            --accent: #4f8ef7;
+            --accent2: #34c98b;
+            --bg: #f0f2f5;
             --card-bg: #ffffff;
-            --text-muted: #7f8c8d;
+            --text-muted: #8a94a6;
+            --border: #e8eaed;
+            --google-green: #01875f;
+            --apple-dark: #555;
         }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--primary-color);
+            font-family: 'DM Sans', 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--primary);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            line-height: 1.7;
         }
+
+        /* ── HEADER ── */
         header {
-            background-color: var(--primary-color);
+            background: var(--primary);
             color: white;
-            padding: 3rem 1rem;
+            padding: 4rem 1rem 3.5rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .container {
-            max-width: 800px;
-            margin: 2rem auto;
-            padding: 0 1rem;
+        header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(79,142,247,0.15) 0%, transparent 60%),
+                        radial-gradient(ellipse at 20% 80%, rgba(52,201,139,0.1) 0%, transparent 50%);
         }
-        .app-card {
+        header h1 {
+            font-family: 'DM Mono', monospace;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.5rem;
+            position: relative;
+        }
+        header p {
+            color: rgba(255,255,255,0.55);
+            font-size: 0.95rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            margin: 0;
+            position: relative;
+        }
+
+        /* ── NAV ANCHOR BAR ── */
+        .nav-bar {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+            padding: 0 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            scrollbar-width: none;
         }
-        .app-title {
-            font-size: 1.8rem;
-            margin-top: 0;
-            color: var(--accent-color);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
+        .nav-bar::-webkit-scrollbar { display: none; }
+        .nav-bar a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.03em;
+            padding: 0.9rem 1.2rem;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s, border-color 0.2s;
         }
-        .description-section {
+        .nav-bar a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 2.5rem 1rem 4rem;
+        }
+
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            text-transform: uppercase;
             margin-bottom: 1.5rem;
         }
-        .lang-label {
-            display: inline-block;
-            background: #eee;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: #666;
+
+        /* ── APP CARD ── */
+        .app-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem 2rem 1.8rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            scroll-margin-top: 56px;
+            transition: box-shadow 0.3s;
         }
-        .description-text {
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
+        .app-card:hover {
+            box-shadow: 0 6px 24px rgba(0,0,0,0.1);
         }
-        .links {
-            margin-top: 2rem;
+
+        .app-header {
             display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             gap: 1rem;
             flex-wrap: wrap;
+            margin-bottom: 1.2rem;
         }
-        .links a {
-            text-decoration: none;
-            color: white;
-            background-color: var(--accent-color);
-            padding: 0.6rem 1.2rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            transition: all 0.3s;
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin: 0;
+            letter-spacing: -0.02em;
         }
-        .links a:hover {
-            opacity: 0.8;
-            transform: translateY(-2px);
+        .app-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #e8f3ff;
+            color: var(--accent);
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+            margin-top: 4px;
         }
-        footer {
-            text-align: center;
-            padding: 3rem;
-            font-size: 0.85rem;
+
+        .description-section { margin-bottom: 1.2rem; }
+        .lang-label {
+            display: inline-block;
+            background: var(--bg);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.68rem;
+            font-family: 'DM Mono', monospace;
+            font-weight: 500;
+            margin-bottom: 0.4rem;
             color: var(--text-muted);
+            letter-spacing: 0.05em;
         }
+        .description-text {
+            font-size: 0.92rem;
+            color: #3a4255;
+            margin: 0;
+        }
+
         hr {
             border: 0;
-            border-top: 1px solid #eee;
-            margin: 1.5rem 0;
+            border-top: 1px solid var(--border);
+            margin: 1.2rem 0;
         }
+
+        /* ── STORE BADGES ── */
+        .store-section {
+            margin-top: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .store-section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+        .store-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* Google Play button */
+        .btn-google-play {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            transition: all 0.25s;
+            border: 1.5px solid transparent;
+        }
+        .btn-google-play:hover {
+            background: #2e3650;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+        }
+        .btn-google-play .store-icon {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+        .btn-store-text { display: flex; flex-direction: column; line-height: 1.2; }
+        .btn-store-text .sub { font-size: 0.65rem; font-weight: 400; opacity: 0.7; letter-spacing: 0.02em; }
+        .btn-store-text .main { font-size: 0.9rem; font-weight: 600; }
+
+        /* Apple Store button — coming soon */
+        .btn-apple-coming {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: white;
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            border: 1.5px dashed var(--border);
+            cursor: default;
+            position: relative;
+        }
+        .btn-apple-coming .store-icon { width: 22px; height: 22px; opacity: 0.4; flex-shrink: 0; }
+        .btn-apple-coming .btn-store-text .main { font-size: 0.9rem; font-weight: 600; }
+        .coming-soon-chip {
+            position: absolute;
+            top: -8px;
+            right: 10px;
+            background: var(--accent2);
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 10px;
+            letter-spacing: 0.04em;
+        }
+
+        /* Doc links */
+        .doc-links {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-top: 1.4rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--border);
+        }
+        .doc-links a {
+            text-decoration: none;
+            color: var(--accent);
+            background: #f0f6ff;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .doc-links a:hover { background: #ddeeff; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+        }
+        footer a { color: var(--accent); text-decoration: none; }
     </style>
 </head>
 <body>
@@ -102,12 +303,25 @@
     <p>Simple tools, powerful experiences.</p>
 </header>
 
-<div class="container">
-    <h2>Published Apps</h2>
+<!-- sticky nav: one link per app for easy scrolling -->
+<nav class="nav-bar" aria-label="Apps">
+    <a href="#mirvid">MIRVID</a>
+    <!-- future app links will be added here -->
+</nav>
 
-    <div class="app-card">
-        <h3 class="app-title">MIRVID ― Mirror Video Player</h3>
-        
+<div class="container">
+    <p class="section-label">Published Apps</p>
+
+    <!-- ── MIRVID ── -->
+    <div class="app-card" id="mirvid">
+        <div class="app-header">
+            <h3 class="app-title">MIRVID ― Mirror Video Player</h3>
+            <span class="app-badge">
+                <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><circle cx="4" cy="4" r="4" fill="#34c98b"/></svg>
+                Available
+            </span>
+        </div>
+
         <div class="description-section">
             <span class="lang-label">JAPANESE</span>
             <p class="description-text">
@@ -126,17 +340,56 @@
             </p>
         </div>
 
-        <div class="links">
+        <!-- Store download buttons -->
+        <div class="store-section">
+            <div class="store-section-label">Download</div>
+            <div class="store-buttons">
+
+                <!-- Google Play — replace href with real URL -->
+                <a class="btn-google-play" href="https://play.google.com/store/apps/details?id=com.nobebeeeno.mirror_player&hl=ja" target="_blank" rel="noopener">
+                    <!-- Google Play icon (SVG) -->
+                    <svg class="store-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.18 1.25C2.76 1.49 2.5 1.94 2.5 2.5v19c0 .56.26 1.01.68 1.25l.1.06 10.64-10.64v-.24L3.28 1.19l-.1.06z" fill="#EA4335"/>
+                        <path d="M17.47 15.6l-3.55-3.55v-.24l3.55-3.55.08.05 4.2 2.39c1.2.68 1.2 1.8 0 2.48l-4.2 2.39-.08.03z" fill="#FBBC04"/>
+                        <path d="M17.55 15.57L13.92 12 3.18 22.75c.4.42 1.04.47 1.76.06l12.61-7.24" fill="#34A853"/>
+                        <path d="M17.55 8.43L4.94 1.19C4.22.78 3.58.83 3.18 1.25L13.92 12l3.63-3.57z" fill="#4285F4"/>
+                    </svg>
+                    <span class="btn-store-text">
+                        <span class="sub">GET IT ON</span>
+                        <span class="main">Google Play</span>
+                    </span>
+                </a>
+
+                <!-- App Store — coming soon -->
+                <span class="btn-apple-coming">
+                    <span class="coming-soon-chip">COMING SOON</span>
+                    <!-- Apple icon (SVG) -->
+                    <svg class="store-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                    </svg>
+                    <span class="btn-store-text">
+                        <span class="sub">Download on the</span>
+                        <span class="main">App Store</span>
+                    </span>
+                </span>
+
+            </div>
+        </div>
+
+        <!-- Doc links -->
+        <div class="doc-links">
             <a href="./docs/MIRVID/PrivacyPolicy/english.html">Privacy Policy</a>
             <a href="./docs/MIRVID/TermsOfService/english.html">Terms of Service</a>
         </div>
     </div>
 
+    <!-- Future app cards will be added here as new <div class="app-card" id="..."> blocks -->
+
 </div>
 
 <footer>
     &copy; 2026 nobebeeeno. All rights reserved.<br>
-    Contact: nobebeeeno.engineer@gmail.com
+    <a href="mailto:nobebeeeno.engineer@gmail.com">nobebeeeno.engineer@gmail.com</a>
 </footer>
 
 </body>
