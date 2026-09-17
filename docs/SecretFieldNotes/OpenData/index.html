@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset='utf-8'>
+  <meta name='viewport' content='width=device-width'>
+  <title>地名データ(OpenStreetMap)</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', sans-serif;
+      padding: 1em;
+      line-height: 1.7;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      margin-top: 2em;
+      font-size: 1.2em;
+    }
+    ul, ol {
+      margin-bottom: 1em;
+    }
+    li {
+      margin-bottom: 0.5em;
+    }
+    hr {
+      margin: 2em 0;
+      border: 0;
+      border-top: 1px solid #eee;
+    }
+    pre {
+      overflow-x: auto;
+      background: #f5f5f5;
+      padding: 0.6em;
+    }
+  </style>
+</head>
+<body>
+  <h1>地名データ(OpenStreetMap)</h1>
+  <p><strong>秘密のフィールドノート</strong>(以下「本アプリ」)</p>
+
+  <hr>
+
+  <p>本アプリの地名検索は、端末に同梱した地名辞書を使って行います。この辞書は <strong>OpenStreetMap</strong> のデータから駅・山・集落の名称と座標だけを抽出した派生データベースで、<a href="https://opendatacommons.org/licenses/odbl/1-0/">Open Database License (ODbL) 1.0</a> のもとで、ここで公開しています。</p>
+  <p>地名データ:© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a></p>
+
+  <h2>ファイル</h2>
+  <ul>
+    <li><a href="gazetteer.tsv.gz">gazetteer.tsv.gz</a> — 地名辞書(本アプリに同梱しているものと同一)</li>
+    <li><a href="LICENSE.txt">LICENSE.txt</a> — 出典とライセンス</li>
+    <li><a href="osm_places.py">osm_places.py</a> — 生成スクリプト(pyosmium)</li>
+    <li><a href="build_gazetteer.dart">build_gazetteer.dart</a> — 生成スクリプト(osmium-tool の出力を畳む Dart 版)</li>
+  </ul>
+
+  <h2>形式</h2>
+  <p>gzip 圧縮した UTF-8 の TSV です。<code>#</code> で始まる行はライセンス表記のヘッダです。</p>
+  <pre>名前 &lt;TAB&gt; よみ &lt;TAB&gt; 緯度 &lt;TAB&gt; 経度 &lt;TAB&gt; 種別</pre>
+  <p>種別は <code>s</code>=駅 / <code>p</code>=山 / <code>t</code>=集落。よみは OpenStreetMap に登録が無い場合は空欄です。</p>
+
+  <h2>生成手順</h2>
+  <p>Geofabrik の日本抽出から、次のどちらかで同じ辞書を生成できます。</p>
+  <pre>curl -L -O https://download.geofabrik.de/asia/japan-latest.osm.pbf
+
+# A: pyosmium だけで生成(pip install osmium)
+python3 osm_places.py japan-latest.osm.pbf gazetteer.tsv.gz
+
+# B: osmium-tool + Dart
+osmium tags-filter japan-latest.osm.pbf \
+  n/railway=station,halt n/natural=peak n/place=city,town,village,suburb \
+  -o places.osm.pbf
+osmium export places.osm.pbf -f geojsonseq -o places.geojsonseq
+dart run build_gazetteer.dart places.geojsonseq gazetteer.tsv.gz</pre>
+  <p>B の Dart スクリプトは <code>archive</code> パッケージを使うため、<code>dart pub add archive</code> を行った Dart プロジェクト内で実行してください。A と B は同じ辞書を出力します。</p>
+  <p>OpenStreetMap のデータは日々更新されるため、同じ手順でも生成した時期によって内容は変わります。</p>
+
+  <hr>
+
+  <p lang="en">The place-name gazetteer bundled with this app is a derivative database of OpenStreetMap data, made available here under the Open Database License (ODbL) 1.0. © OpenStreetMap contributors.</p>
+</body>
+</html>
