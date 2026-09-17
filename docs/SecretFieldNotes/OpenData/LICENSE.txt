@@ -1,0 +1,29 @@
+地名辞書(gazetteer.tsv.gz)について
+
+出典: OpenStreetMap (https://www.openstreetmap.org/)
+      © OpenStreetMap contributors
+ライセンス: Open Database License (ODbL) 1.0
+      https://opendatacommons.org/licenses/odbl/1-0/
+
+このファイルは、アプリ「秘密のフィールドノート」の地名検索に同梱している
+地名辞書と同一のものです。OpenStreetMap のデータから、駅・山・集落の
+名称と座標だけを抽出した派生データベースで、ODbL 1.0 のもとで提供します。
+
+生成に使ったスクリプト(osm_places.py / build_gazetteer.dart)を
+同じ場所に置いています。生成手順は index.html を参照してください。
+
+ODbL が及ぶのはこの派生データベースであり、アプリ本体には及びません。
+
+----
+
+About gazetteer.tsv.gz
+
+Source: OpenStreetMap (https://www.openstreetmap.org/)
+        © OpenStreetMap contributors
+License: Open Database License (ODbL) 1.0
+        https://opendatacommons.org/licenses/odbl/1-0/
+
+This file is identical to the place-name gazetteer bundled with the app
+"Secret Field Notes" (秘密のフィールドノート). It is a derivative database
+containing only the names and coordinates of stations, peaks and settlements
+extracted from OpenStreetMap data, and is made available under ODbL 1.0.
